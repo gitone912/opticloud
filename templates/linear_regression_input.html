@@ -353,7 +353,7 @@
         }    
     </style>
     <div id="logo">
-        <span class="big-logo">SecureLog.AI</span>
+        <span class="big-logo">OptiCloud</span>
     </div>
     <div id="left-menu">
         <ul>
@@ -362,7 +362,7 @@
                     <i class="ion-ios-person-outline"></i>
                     <span>Dashboard</span>
                 </a></li>
-            <li class="active"><a href="{% url 'anomaly' %}">
+            <li ><a href="{% url 'anomaly' %}">
                     <i class="ion-ios-albums-outline"></i>
                     <span>Anomaly</span>
                 </a></li>
@@ -384,7 +384,7 @@
                 </a></li>
         
             <!-- Additional URLs -->
-            <li><a href="{% url 'linear_regression_input' %}">
+            <li  class="active"><a href="{% url 'linear_regression_input' %}">
                     <i class="ion-ios-chatboxes-outline"></i>
                     <span>Linear Regression Input</span>
                 </a></li>
@@ -412,7 +412,7 @@
         
     </div>
     <div id="main-content">
-    <h1>Linear Regression Model Input</h1>
+    <h1>Prediction</h1>
 
     
     <form method="post" action="{% url 'linear_regression_model' %}">

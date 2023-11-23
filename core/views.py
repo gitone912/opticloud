@@ -238,3 +238,6 @@ def rds_pred(request):
         return render(request, 'rds_pred.html', context={'r': r, 'user_storage_requirement': user_storage_requirement})
 
     return render(request, 'rds_pred_input.html')  # This is a new template for taking user input
+
+def get_instance_details(request):
+    pass
