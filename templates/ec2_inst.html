@@ -1,0 +1,288 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/forsigner/magic-check/master/css/magic-check.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
+</head>
+<body>
+    <style>
+        /* Your existing styles for body, links, inputs, buttons, etc. */
+
+        #left-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            background-color: #313644;
+            overflow-y: auto;
+            height: 100vh;
+            border-right: 1px solid #e6ecf5;
+            margin-top: 60px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            overflow-x: hidden;
+            z-index: 2;
+        }
+
+        #left-menu.small-left-menu,
+        #logo.small-left-menu {
+            width: 60px;
+        }
+
+        #left-menu ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        #left-menu ul li {
+            padding: 0 10px;
+            display: block;
+            position: relative;
+        }
+
+        #left-menu > ul > li {
+            margin: 15px 0;
+        }
+
+        #left-menu ul li a {
+            color: #99abb4;
+            width: 100%;
+            display: inline-block;
+            width: 260px;
+            height: 37px;
+            position: relative;
+        }
+
+        #left-menu ul li a i {
+            font-size: 22px;
+            text-align: center;
+            width: 35px;
+            height: 35px;
+            display: inline-block;
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        #left-menu ul li:hover a span {
+            color: #0e9aee;
+        }
+
+        #left-menu ul li:hover a i {
+            color: #0e9aee;
+        }
+
+        #left-menu ul li a span {
+            width: 100%;
+            height: 35px;
+            padding-left: 10px;
+            color: #99abb4;
+            font-weight: 300;
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        #left-menu ul li.active a {
+            border-bottom: 2px solid #0e9aee;
+        }
+
+        #left-menu ul li.active a span {
+            color: #fff;
+        }
+
+        #left-menu ul li.active a i {
+            background-color: #0e9aee;
+            color: #fff;
+        }
+
+        #left-menu li.has-sub ul {
+            background-color: #454e62;
+            margin: 0 -10px;
+            padding-left: 45px;
+            height: 0;
+            overflow: hidden;
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        #left-menu li ul.open {
+            /*    height: 140px;*/
+        }
+
+        #left-menu li.has-sub ul > li {
+            padding-top: 10px;
+        }
+
+        #logo {
+            position: fixed;
+            top: 0;
+            z-index: 2;
+            left: 0;
+            background-color: #464e62;
+            border-color: #464e62;
+            height: 60px;
+            width: 280px;
+            font-size: 30px;
+            line-height: 2em;
+            border-right: 1px solid #e6ecf5;
+            z-index: 4;
+            color: #fff;
+            padding-left: 15px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        #header {
+            background-color: #fff;
+            height: 60px;
+            border-bottom: 1px solid #e6ecf5;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+
+        #header .header-left {
+            padding-left: 300px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #header .header-right {
+            padding-right: 40px;
+        }
+
+        #main-content {
+            min-height: calc(100vh - 60px);
+            clear: both;
+            padding-left: 300px;
+            /* Adjusted padding to match the width of the left menu */
+        }
+
+        #page-container {
+            padding-left: 300px;
+            padding-top: 80px;
+            padding-right: 25px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #page-container.small-left-menu,
+        #header .header-left.small-left-menu {
+            padding-left: 80px;
+        }
+
+        .card {
+            border: 1px solid #e6ecf5;
+            margin-bottom: 1em;
+            font-weight: 300;
+        }
+
+        .card .title {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e6ecf5;
+            margin-bottom: 10px;
+            color: #000;
+            font-size: 18px;
+        }
+    </style>
+
+    <div id="logo">
+        <span class="big-logo">SecureLog.AI</span>
+    </div>
+
+    <div id="left-menu">
+        <ul>
+            <!-- Existing URLs -->
+            <li><a href="{% url 'dashboard' %}">
+                    <i class="ion-ios-person-outline"></i>
+                    <span>Dashboard</span>
+                </a></li>
+            <li class="active"><a href="{% url 'anomaly' %}">
+                    <i class="ion-ios-albums-outline"></i>
+                    <span>Anomaly</span>
+                </a></li>
+            <li><a href="{% url 'nlp' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>NLP</span>
+                </a></li>
+            <li><a href="{% url 'nlp' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>NLP GPT</span>
+                </a></li>
+            <li><a href="{% url 'llama' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>NLP(LLaMA)</span>
+                </a></li>
+            <li><a href="{% url 'logout' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>logout</span>
+                </a></li>
+
+            <!-- Additional URLs -->
+            <li><a href="{% url 'linear_regression_input' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>Linear Regression Input</span>
+                </a></li>
+            <li><a href="{% url 'linear_regression_model' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>Linear Regression Model</span>
+                </a></li>
+            <li><a href="{% url 'cost_exp_visualization' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>Cost Exp Visualization</span>
+                </a></li>
+            <li><a href="{% url 'ec2_instance_vis' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>EC2 Instance Visualization</span>
+                </a></li>
+            <li><a href="{% url 'rds_vis' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>RDS Visualization</span>
+                </a></li>
+            <li><a href="{% url 'rds_pred' %}">
+                    <i class="ion-ios-chatboxes-outline"></i>
+                    <span>RDS Prediction</span>
+                </a></li>
+        </ul>
+    </div>
+
+    <div id="main-content">
+        <h1>EC2 Instance Visualizations</h1>
+
+        <div>
+            <h2>Instance Type Distribution</h2>
+            <img src="{% static 'ec2/instance_state_distribution_with_instance_type.png' %}" alt="Instance Type Distribution">
+        </div>
+
+        <div>
+            <h2>Instance State Distribution</h2>
+            <img src="{% static 'ec2/instance_state_distribution.png' %}" alt="Instance State Distribution">
+        </div>
+
+        <div>
+            <h2>Launch Time vs Instance Type</h2>
+            <img src="{% static 'ec2/instance_type_distribution.png' %}" alt="Launch Time vs Instance Type">
+        </div>
+
+        <div>
+            <h2>Instance State Distribution with Instance Type</h2>
+            <img src="{% static 'ec2/launch_time_vs_instance_type.png' %}" alt="Instance State Distribution with Instance Type">
+        </div>
+    </div>
+</body>
+</html>

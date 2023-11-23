@@ -351,40 +351,68 @@
         }    
     </style>
     <div id="logo">
-        <span class="big-logo">SecureLog.AI</span>
+        <span class="big-logo">OptiCloud</span>
     </div>
     <div id="left-menu">
-        <ul>
-            <li class="active"><a href="#">
-                <i class="ion-ios-person-outline"></i>
-                <span>Dashboard</span>
-            </a></li>
-            <li><a href=" {% url "anomaly" %} ">
-                <i class="ion-ios-albums-outline"></i>
-                <span>Anomaly</span>
-            </a></li>
+       
+            <ul>
+                <!-- Existing URLs -->
+                <li><a href="{% url 'dashboard' %}">
+                        <i class="ion-ios-person-outline"></i>
+                        <span>Dashboard</span>
+                    </a></li>
+                <li class="active"><a href="{% url 'anomaly' %}">
+                        <i class="ion-ios-albums-outline"></i>
+                        <span>Anomaly</span>
+                    </a></li>
+                <li><a href="{% url 'nlp' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>NLP</span>
+                    </a></li>
+                <li><a href="{% url 'nlp' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>NLP GPT</span>
+                    </a></li>
+                <li><a href="{% url 'llama' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>NLP(LLaMA)</span>
+                    </a></li>
+                <li><a href="{% url 'logout' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>logout</span>
+                    </a></li>
             
-            <li><a href="{% url "nlp" %}">
-                <i class="ion-ios-chatboxes-outline"></i>
-                <span>NLP</span>
-            </a></li>
-            <li  ><a href="{% url "nlp" %}">
-                <i class="ion-ios-chatboxes-outline"></i>
-                <span>NLP GPT</span>
-            </a></li>
-            <li  ><a href="{% url "llama" %}">
-                <i class="ion-ios-chatboxes-outline"></i>
-                <span>NLP(LLaMA)</span>
-            </a></li>
-           
-            <li ><a href="{% url "logout" %}">
-                <i class="ion-ios-chatboxes-outline"></i>
-                <span>logout</span>
-            </a></li>
+                <!-- Additional URLs -->
+                <li><a href="{% url 'linear_regression_input' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>Linear Regression Input</span>
+                    </a></li>
+                <li><a href="{% url 'linear_regression_model' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>Linear Regression Model</span>
+                    </a></li>
+                <li><a href="{% url 'cost_exp_visualization' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>Cost Exp Visualization</span>
+                    </a></li>
+                <li><a href="{% url 'ec2_instance_vis' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>EC2 Instance Visualization</span>
+                    </a></li>
+                <li><a href="{% url 'rds_vis' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>RDS Visualization</span>
+                    </a></li>
+                <li><a href="{% url 'rds_pred' %}">
+                        <i class="ion-ios-chatboxes-outline"></i>
+                        <span>RDS Prediction</span>
+                    </a></li>
+            </ul>
+            
            
             
 
-        </ul>
+       
     </div>
     <div id="main-content">
         <div id="header">

@@ -8,6 +8,11 @@ from core.ai_models.data_prep import process_logs
 from core.ai_models.isolation_f import *
 from core.nlp.gptkey import *
 from core.nlp.llama import *
+from core.ai_models.cost_exp_pred import *
+from core.ai_models.rds import *
+from core.ai_models.isolation_f import *
+from core.ai_models.cost_exp import *
+from core.ai_models.ec2_instance import *
 
 def home_view(request):
     return render(request, 'homepage.html')
@@ -139,5 +144,97 @@ def llama(request):
     return render(request, 'llama.html')
 
 
-def other_models(request):
-    return render(request, 'kmean.html')
+
+
+
+def linear_regression_input(request):
+    return render(request, 'linear_regression_input.html', {'prediction': None})
+
+def linear_regression_model(request):
+    if request.method == 'POST':
+        # Get user input for date and time
+        start_date = request.POST.get('start_date')
+        start_time = request.POST.get('start_time')
+        end_date = request.POST.get('end_date')
+        end_time = request.POST.get('end_time')
+
+        # Create user input dictionary
+        user_input = {
+            'Service': 'EC2',
+            'Resource Type': 'EBS:VolumeUsage.gp2',
+            'Start': pd.to_datetime(f'{start_date} {start_time}'),
+            'End': pd.to_datetime(f'{end_date} {end_time}')
+        }
+
+        # Assuming 'data/cost_explorer_data.csv' is your CSV file path
+        df = preprocess_cost_data('data/cost_explorer_data.csv')
+
+        # Define features and target variable
+        features = ['Service', 'Resource Type', 'Start', 'End']
+        target = 'BlendedCost'
+
+        # Create pipeline and train the model
+        pipeline = create_linear_regression_pipeline(features, target)
+        X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.2, random_state=42)
+        trained_pipeline = train_linear_regression_model(pipeline, X_train, y_train)
+
+        # Make predictions on user input
+        user_input_df = pd.DataFrame([user_input])
+        user_input_features = user_input_df[features]
+        user_predictions = predict_blended_cost(trained_pipeline, user_input_features)
+
+        return render(request, 'cost_exp.html', {'prediction': round(user_predictions/100000000)})
+
+    return render(request, 'cost_exp.html', {'prediction': None})
+
+
+
+
+def cost_exp_visualization(request):
+    # Assuming your data is in a DataFrame named df
+    df = preprocess_cost_data('data/cost_explorer_data.csv')
+
+    # Plotting
+    plot_blended_cost_over_time(df)
+    plot_service_counts(df)
+    plot_scatter_resource_type_vs_blended_cost(df)
+    plot_box_plot_blended_cost_distribution_by_service(df)
+    plot_heatmap_blended_cost_correlation(df)
+
+    return render(request, 'cost_exp_vis.html')
+
+
+def ec2_instance_vis(request):
+    df = pd.read_csv('data/ec2_instances_data.csv')
+    plot_instance_type_distribution(df)
+    plot_instance_state_distribution(df)
+    plot_launch_time_vs_instance_type(df)
+    plot_instance_state_distribution_with_instance_type(df)
+    
+    return render(request, 'ec2_inst.html')
+
+
+def rds_vis(request):
+    df = pd.read_csv('data/rds_databases_data.csv')
+    plot_engine_distribution(df)
+    plot_status_distribution(df)
+    plot_storage_vs_engine(df)
+    plot_engine_distribution_with_status(df)
+
+    return render(request, 'rds_vis.html')
+
+
+def rds_pred(request):
+    if request.method == 'POST':
+        # Assuming you have a form with an input field named 'storage_requirement'
+        user_storage_requirement = int(request.POST.get('storage_requirement', 50))
+        
+        # Assuming your data is in 'data/rds_databases_data.csv'
+        df = pd.read_csv('data/rds_databases_data.csv')
+        
+        # Make recommendations
+        r = recommend_engine_instance_and_storage(df, user_storage_requirement)
+        
+        return render(request, 'rds_pred.html', context={'r': r, 'user_storage_requirement': user_storage_requirement})
+
+    return render(request, 'rds_pred_input.html')  # This is a new template for taking user input
