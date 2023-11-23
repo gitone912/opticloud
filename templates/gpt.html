@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+</head>
+<body>
+
+    <form method="post" action="{% url 'your_view_function_name' %}">
+        {% csrf_token %}
+        <input type="hidden" name="instance_size" value="{{ recommended_instance_size }}">
+        <input type="hidden" name="storage" value="{{ recommended_storage }}">
+        <button type="submit">Explain GPT</button>
+    </form>
+
+</body>
+</html>
